@@ -8,9 +8,9 @@
 
 <p align="center">
   <a href="#-por-quê">Por quê?</a> •
-  <a href="#-demonstracao">Demonstração</a> •
+  <a href="#-demonstração">Demonstração</a> •
   <a href="#-tecnologias">Tecnologias</a> •
-  <a href="#-como-usar">Rodando o projeto local</a>
+  <a href="#-rodando-o-projeto-local">Rodando o projeto local</a>
 </p>
 
 <br><br>

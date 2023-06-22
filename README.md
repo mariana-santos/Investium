@@ -85,13 +85,12 @@ $ git clone https://github.com/mariana-santos/repo_challenge.git
 ```
 
 ##### 👉 **_Backend:_**
+Abra o Eclipse e na aba File > Open Projects from file system > directory 
+Selecione a pasta _repo_challenge_ clonada no passo anterior e depois selecione a pasta _InvestiumAPI_
 
-```bash
-$ cd InvestiumAPI
-```
+Feito isso, agora é necessário adicionar o Driver da oracle no projeto:
 
-Adicionando o Driver no seu projeto no Eclipse:
-
+**Adicionando o Driver no seu projeto no Eclipse:**
 _Botão direito no projeto > Properties > Java Build Path > clique em Modulepath > Add External JARs… > Escolha o driver JDBC que você fez download anteriormente > Apply and Close_
 
 Rode o servidor:

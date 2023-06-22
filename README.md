@@ -37,7 +37,6 @@
 
 <h2>💻 Demonstração</h2>
 
-
 https://github.com/mariana-santos/repo_challenge/assets/56116824/f36eff07-1c37-4443-ac01-563c75fd1e30
 <p>Assista no Youtube: https://youtu.be/3nP4r-L_qqk</p>
 <p>Teste a versão Beta da aplicação: https://repo-challenge-j1bp-rcxn1h15r-mariana-santos.vercel.app/</p>
@@ -69,7 +68,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 <br>
 
-<h2>🚀 Como usar</h2>
+<h2>🚀 Rodando o projeto local</h2>
 
 Antes de tudo, você precisa ter instalado em sua máquina as seguintes ferramentas:
 [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/), [Eclipse (Java)](https://www.oracle.com/java/technologies/downloads/) e [JDBC](https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html). 

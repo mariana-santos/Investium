@@ -13,6 +13,7 @@ import Modal from '../../Modal'
 import { toast } from 'react-toastify'
 
 import { useQuery } from 'react-query'
+import { API_baseurl } from '../../../services/utils'
 
 export default function Card(props) {
   const { dados, admOptions } = props
@@ -27,18 +28,18 @@ function Materia(props) {
 
   const [postagens, setPostagens] = useState([])
 
-  // const { isLoading, error, data } = useQuery('perfil', () =>
-  //   fetch(`https://investium-api.herokuapp.com/usuario/${user?.email}/${user?.senha}`)
-  //     .then(resp => resp.json())
-  // );
+  const { isLoading, error, data } = useQuery('perfil', () =>
+    fetch(`${API_baseurl}/login/${user?.email}/${user?.senha}`)
+      .then(resp => resp.json())
+  );
 
-  // useEffect(() => {
-  //   if (user && !isLoading && !error) {
-  //     if (data.nome && data.email && data.senha) {
-  //       setPostagens(data.postagens)
-  //     }
-  //   }
-  // }, [isLoading, error, data])
+  useEffect(() => {
+    if (user && !isLoading && !error) {
+      if (data.nome && data.email && data.senha) {
+        setPostagens(data.postagens)
+      }
+    }
+  }, [isLoading, error, data])
 
   useEffect(() => {
     setSaved(postagens.some((post) => post.id === id))
@@ -64,31 +65,39 @@ function Materia(props) {
     // fetch('')
   }
 
+  function handleUnsave() {
+    if (user) {
+
+      fetch(`${API_baseurl}/usuario/${user.email}/postagem/${id}`, {
+        method: 'DELETE',
+      })
+        .then(response => response.json())
+        .catch(error => {
+          console.log(error);
+        });
+
+      setSaved(prevState => !prevState)
+    } else {
+      toast.error('Você precisa estar logado para salvar uma matéria!')
+    }
+  }
+
   function handleSave() {
-    // if (user) {
-    //   const path = isSaved ? 'removerPostagem' : 'salvarPostagem'
+    if (user) {
 
-    //   const data = {
-    //     emailUsuario: user.email,
-    //     idPostagem: id,
-    //   };
+      fetch(`${API_baseurl}/usuario/${user.email}/postagem/${id}`, {
+        method: 'POST'
+      })
+        .then(response => response.json())
+        .catch(error => {
+          console.log(error);
+        });
 
-    //   fetch(`https://investium-api.herokuapp.com/usuario/${path}`, {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(data)
-    //   })
-    //     .then(response => response.json())
-    //     .catch(error => {
-    //       console.log(error);
-    //     });
+      setSaved(prevState => !prevState)
 
-    //   setSaved(prevState => !prevState)
-    // } else {
-    //   toast.error('Você precisa estar logado para salvar uma matéria!')
-    // }
+    } else {
+      toast.error('Você precisa estar logado para salvar uma matéria!')
+    }
   }
 
   return (
@@ -172,7 +181,7 @@ function Materia(props) {
               style="secondary"
             />
             <>
-              <a onClick={handleSave}>
+              <a onClick={isSaved ? handleUnsave : handleSave}>
                 {isSaved ? (
                   <MdOutlineBookmark className='icon_opt save' />
                 ) : (

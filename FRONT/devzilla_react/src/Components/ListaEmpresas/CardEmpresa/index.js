@@ -20,6 +20,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { useQuery } from 'react-query'
+import { API_baseurl } from '../../../services/utils'
 
 export default function Card(props) {
     const { tipo, dados, admOptions } = props
@@ -33,20 +34,20 @@ function IPO(props) {
     let user = null
     if (userData) user = JSON.parse(userData);
 
-    // const { isLoading, error, data } = useQuery('perfil', () =>
-    //     fetch(`https://investium-api.herokuapp.com/usuario/${user?.email}/${user?.senha}`)
-    //         .then(resp => resp.json())
-    // );
+    const { isLoading, error, data } = useQuery('perfil', () =>
+        fetch(`${API_baseurl}/login/${user?.email}/${user?.senha}`)
+            .then(resp => resp.json())
+    );
 
     const [empresas, setEmpresas] = useState([])
 
-    // useEffect(() => {
-    //     if (user && !isLoading && !error) {
-    //         if (data.nome && data.email && data.senha) {
-    //             setEmpresas(data.empresas)
-    //         }
-    //     }
-    // }, [isLoading, error, data])
+    useEffect(() => {
+        if (user && !isLoading && !error) {
+            if (data?.nome && data?.email && data?.senha) {
+                setEmpresas(data.empresas)
+            }
+        }
+    }, [isLoading, error, data])
 
     useEffect(() => {
         setSaved(empresas.some((empresa) => empresa.id === id))
@@ -69,32 +70,40 @@ function IPO(props) {
         setShowDelete(prevState => !prevState);
     }
 
-    function handleSave() {
+    function handleUnsave() {
         if (user) {
-            const path = isSaved ? 'removerEmpresa' : 'salvarEmpresa'
-
-            const data = {
-                emailUsuario: user.email,
-                idEmpresa: id,
-            };
-
-            // fetch(`https://investium-api.herokuapp.com/usuario/${path}`, {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify(data)
-            // })
-            //     .then(response => response.json())
-            //     .catch(error => {
-            //         console.log(error);
-            //     });
-
-            // setSaved(prevState => !prevState)
+    
+          fetch(`${API_baseurl}/usuario/${user.email}/empresa/${id}`, {
+            method: 'DELETE',
+          })
+            .then(response => response.json())
+            .catch(error => {
+              console.log(error);
+            });
+    
+          setSaved(prevState => !prevState)
         } else {
-            toast.error('Você precisa estar logado para salvar uma IPO!')
+          toast.error('Você precisa estar logado para salvar uma empresa!')
         }
-    }
+      }
+    
+      function handleSave() {
+        if (user) {
+    
+          fetch(`${API_baseurl}/usuario/${user.email}/empresa/${id}`, {
+            method: 'POST'
+          })
+            .then(response => response.json())
+            .catch(error => {
+              console.log(error);
+            });
+    
+          setSaved(prevState => !prevState)
+    
+        } else {
+          toast.error('Você precisa estar logado para salvar uma empresa!')
+        }
+      }
 
     const [activeStep, setActiveStep] = useState(0);
     const [skipped, setSkipped] = useState(new Set());
@@ -167,7 +176,7 @@ function IPO(props) {
             <article className="card ipo">
                 <div className="card_content">
                     <Link to={`/empresas/ipo/${id}`} className='wrap_img' style={{ background: cor }}>
-                        <img src={imagem} className="logo" alt="logo" />
+                        {imagem && <img src={imagem} className="logo" alt="logo" />}
                     </Link>
 
                     <h3 className="c_title">{nome}</h3>
@@ -181,7 +190,7 @@ function IPO(props) {
                             <VscEdit className='icon_opt edit' onClick={toggleModalEdit} /> */}
                         </>}
 
-                    <a onClick={handleSave}>
+                    <a onClick={isSaved ? handleUnsave : handleSave}>
                         {isSaved ?
                             <MdOutlineBookmark className='icon_opt save' /> :
                             <MdOutlineBookmarkBorder className='icon_opt save' />}

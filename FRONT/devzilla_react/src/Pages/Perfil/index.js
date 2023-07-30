@@ -1,6 +1,7 @@
 import Header from '../../Components/Header'
 import Footer from '../../Components/Footer'
-import ListaCards from '../../Components/ListaArtigos'
+import ListaArtigos from '../../Components/ListaArtigos'
+import ListaEmpresas from '../../Components/ListaEmpresas'
 import banner_perfil from '../../Assets/Illustrations/banner_perfil.svg'
 
 import ReactLoading from 'react-loading'
@@ -14,11 +15,11 @@ import { CiCalendarDate } from 'react-icons/ci'
 
 import { useEffect, useState } from 'react'
 
-import moment from 'moment'
-
 import { useQuery } from 'react-query'
 
 import './style.css'
+
+import { API_baseurl } from '../../services/utils'
 
 export default function Perfil() {
 
@@ -35,22 +36,19 @@ export default function Perfil() {
     const [senha, setSenha] = useState(user.senha)
     const [errorSenha, setErrorSenha] = useState(null)
 
-    const [dtNasc, setDtNasc] = useState(user.dtNascimento)
-    const [errorNasc, setErrorNasc] = useState(null)
-
     const [postagens, setPostagens] = useState([])
     const [empresas, setEmpresas] = useState([])
 
     const { isLoading, error, data } = useQuery('perfil', () =>
-        fetch(`https://investium-api.herokuapp.com/usuario/${email}/${senha}`)
+        fetch(`${API_baseurl}/login/${email}/${senha}`)
         .then(resp => resp.json())
     );
 
     useEffect(() => {
         if(user && !error && !isLoading){
-            if (data.nome && data.email && data.senha) {
-                setPostagens(data.postagens)
-                setEmpresas(data.empresas)
+            if (data?.nome && data?.email && data?.senha) {
+                setPostagens(data?.postagens)
+                setEmpresas(data?.empresas)
             }
         }
     }, [isLoading, error, data])
@@ -103,16 +101,6 @@ export default function Perfil() {
                                     value={senha}
                                     onChange={e => setSenha(e.target.value)}
                                 />
-
-                                <Campo
-                                    label="Data de nascimento"
-                                    id="dt_nasc"
-                                    type="date"
-                                    icon={<CiCalendarDate />}
-                                    errorMsg={errorNasc}
-                                    value={moment(dtNasc).format('YYYY-MM-DD')}
-                                    onChange={e => setDtNasc(e.target.value)}
-                                />
                             </div>
 
                             <div className="block">
@@ -133,15 +121,18 @@ export default function Perfil() {
                             <div className='container bg_gray' style={{paddingBottom: 0}}>
                                 <h1 className='line_after' style={{marginBottom: 0}}>Itens salvos</h1>
                                 {(empresas.length <= 0 && postagens.length <= 0) && 
-                                    <p style={{textAlign: 'center'}}>Seus itens salvos aparecerão aqui</p>}
+                                    <p 
+                                        style={{textAlign: 'center', paddingBottom: '2em', marginBottom: 0}}>
+                                            Seus itens salvos aparecerão aqui
+                                    </p>}
                             </div>
 
                             {empresas.length > 0 && (
-                                <ListaCards dados={empresas} tipo="ipo" botao />
+                                <ListaEmpresas dados={empresas} tipo="ipo" botao />
                             )}
 
                             {postagens.length > 0 && (
-                                <ListaCards dados={postagens} tipo="materia" botao />
+                                <ListaArtigos dados={postagens} tipo="materia" botao />
                             )}        
                         </>
                     ) }

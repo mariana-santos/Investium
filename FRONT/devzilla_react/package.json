@@ -2,6 +2,7 @@
   "name": "devzilla_react",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://investiumpython-1-h3568230.deta.app",
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
@@ -9,6 +10,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.4.0",
     "chart.js": "^4.2.1",
     "moment": "^2.29.4",
     "randomcolor": "^0.6.2",

@@ -23,6 +23,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { UserContext } from "../../App";
 
+import { API_baseurl } from "../../services/utils";
+
 export default function Cadastro() {
 
     const [email, setEmail] = useState('')
@@ -42,7 +44,7 @@ export default function Cadastro() {
         if (validaEmail() && validaSenha()) {
             setCarregando(true)
 
-            fetch(`https://investium-api.herokuapp.com/usuario/${email}/${senha}`)
+            fetch(`${API_baseurl}/login/${email}/${senha}`)
                 .then((resp) => resp.json())
                 .then((data) => {
                     setCarregando(false)

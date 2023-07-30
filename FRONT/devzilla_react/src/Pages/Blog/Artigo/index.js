@@ -19,6 +19,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import ReactLoading from 'react-loading'
 
+import { API_baseurl } from "../../../services/utils";
+
 export default function Artigo() {
 
     const { id } = useParams()
@@ -29,13 +31,13 @@ export default function Artigo() {
     const [novocomentario, setNovoComentario] = useState([])
 
     const { isLoading, error, data: artigo } = useQuery(`postagem-${id}`, () =>
-        fetch(`https://investium-api.herokuapp.com/postagem/${id}`).then(res =>
-        res.json()
+        fetch(`${API_baseurl}/postagem/${id}`).then(res =>
+            res.json()
         )
     )
 
     function carregarComentarios() {
-        fetch(`https://investium-api.herokuapp.com/comentario/byPost/${id}`)
+        fetch(`${API_baseurl}/comentario/by_post/${id}`)
             .then((resp) => resp.json())
             .then((data) => setComentarios(data))
             .catch((error) => console.error(error));
@@ -71,7 +73,7 @@ export default function Artigo() {
             };
             console.log(data)
             if (data.comentario !== '') {
-                fetch('https://investium-api.herokuapp.com/comentario', {
+                fetch(API_baseurl + '/comentario', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -80,7 +82,7 @@ export default function Artigo() {
                 })
                     .then(response => {
                         if (response.status >= 250) {
-                            toast.error('Erro na requisição');
+                            toast.error('Ops! Algo deu errado :/ Tente novamente');
                         } else {
                             console.log(response)
                             setNovoComentario('');
@@ -90,7 +92,6 @@ export default function Artigo() {
                         }
                     })
                     .catch(error => {
-                        console.log(error);
                         toast.error(error);
                     });
             }
@@ -107,14 +108,14 @@ export default function Artigo() {
 
     const { isLoading: isLoadingPerfil, error: errorPerfil, perfil } = useQuery('perfil', () =>
         fetch(`https://investium-api.herokuapp.com/usuario/${user?.email}/${user?.senha}`)
-        .then(resp => resp.json())
+            .then(resp => resp.json())
     );
 
     useEffect(() => {
         if (perfil && !isLoadingPerfil && !errorPerfil) {
-          if (perfil.nome && perfil.email && perfil.senha) {
-            setPostagens(perfil.postagens);
-          }
+            if (perfil.nome && perfil.email && perfil.senha) {
+                setPostagens(perfil.postagens);
+            }
         }
     }, [perfil, isLoadingPerfil, errorPerfil]);
 
@@ -198,8 +199,11 @@ export default function Artigo() {
 
                                 <div id="content">
 
-                                    {paragrafos.map((paragrafo) => 
-                                    <p>{paragrafo.replace('\\n', '').replace('\n', '')}</p>)}
+                                    {paragrafos.map((paragrafo, index) =>
+                                        <p key={index}>
+                                            {paragrafo.replace('\\n', '').replace('\n', '')}
+                                        </p>
+                                    )}
 
                                     <section id="comentarios">
 
@@ -207,7 +211,7 @@ export default function Artigo() {
 
                                         {comentarios.map((comentario) => {
                                             return (
-                                                <div className="comentario">
+                                                <div className="comentario" key={comentario.id}>
                                                     <div className="profile">
                                                         <BsFillPersonFill />
                                                     </div>
@@ -223,7 +227,7 @@ export default function Artigo() {
                                             <div className="profile">
                                                 <BsFillPersonFill />
                                             </div>
-                                            <h3>{ user ? user.nome : 'Art Vandelay'}</h3>
+                                            <h3>{user ? user.nome : 'Art Vandelay'}</h3>
 
                                             <textarea value={novocomentario} onChange={event => setNovoComentario(event.target.value)} placeholder="O que você achou da matéria?" rows="3"></textarea>
                                             <a className="btn btn_primary" onClick={adicionarComentario}>comentar</a>

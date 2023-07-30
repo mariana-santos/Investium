@@ -7,14 +7,18 @@ import ReactLoading from 'react-loading';
 
 import { useQuery } from 'react-query'
 
+import { API_baseurl } from '../../services/utils';
+
+import api from '../../services/api';
+
 export default function ListaCards(props) {
   const { tipo, botao, admOptions, max } = props
 
   const [dados, setDados] = useState(props.dados)
 
   const { isLoading, error, data } = useQuery(`repo-blog`, () =>
-    fetch(`https://investium-api.herokuapp.com/postagem`).then(res =>
-      res.json())
+    fetch(`${API_baseurl}/postagem`)
+    .then(res => res.json())
   )
 
   useEffect(() => {
@@ -35,14 +39,14 @@ export default function ListaCards(props) {
       ) : (
         <div className="lista_cards">
 
-          {dados?.map((artigo) => (
+          {/* {dados?.map((artigo) => (
             <Card
               key={artigo.id}
               tipo={tipo}
               dados={artigo}
               admOptions={admOptions}
             />
-          ))}
+          ))} */}
 
         </div>
       )}

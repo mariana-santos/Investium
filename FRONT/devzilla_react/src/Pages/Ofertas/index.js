@@ -6,6 +6,9 @@ import Banner from "../../Components/Banner";
 import { useState, useEffect } from "react";
 
 import { useQuery } from 'react-query';
+import { API_baseurl } from '../../services/utils';
+
+
 
 export default function Ofertas(){
     const [empresasFiltradas, setEmpresasFiltradas] = useState([])
@@ -15,7 +18,7 @@ export default function Ofertas(){
     const [resultPesquisa, setResult] = useState('')
 
     const { isLoading, error: errorEmpresas, data: empresas } = useQuery('repo-empresa', () =>
-    fetch('https://investium-api.herokuapp.com/empresa').then(res =>
+    fetch(API_baseurl + '/empresa').then(res =>
       res.json()
     )
   )

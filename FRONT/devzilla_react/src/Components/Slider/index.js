@@ -5,9 +5,7 @@ import Slider from "react-slick";
 
 import './style.css'
 
-export default function BannerSlider(props){
-    const banners = props.banners;
-
+export default function BannerSlider({ banners }){
     var settings = {
         dots: true,
         infinite: true,

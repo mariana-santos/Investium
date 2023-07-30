@@ -24,6 +24,8 @@ import validator from "validator";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { API_baseurl } from "../../services/utils";
+
 export default function Cadastro(){
 
     const [nome, setNome] = useState('')
@@ -55,10 +57,12 @@ export default function Cadastro(){
                 email: email,
                 senha: senha,
                 dtNascimento: '2023-05-15',
-                papel: 'user'
+                papel: 'user',
+                postagens: [],
+                empresas: []
             };
 
-            fetch('https://investium-api.herokuapp.com/usuario', {
+            fetch(API_baseurl + '/usuario', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

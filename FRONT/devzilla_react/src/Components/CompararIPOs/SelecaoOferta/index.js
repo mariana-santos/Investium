@@ -4,18 +4,19 @@ import { ComparacaoContext } from "../../CompararIPOs";
 
 import { useQuery } from "react-query";
 
+import { API_baseurl } from '../../../services/utils';
+
 export default function SelecaoOferta({ id, step }) {
 
   const [empresas, setEmpresas] = useState([]);
   const [oferta1, setOferta1] = useState({});
   const [oferta2, setOferta2] = useState({});
   const [selecao, setSelecao] = useState('');
-  const [loading, setLoading] = useState(true);
 
   const { setOfertas, ofertas } = useContext(ComparacaoContext);
 
   const { isLoading, error, data } = useQuery('empresas', () =>
-    fetch('https://investium-api.herokuapp.com/empresa')
+    fetch(API_baseurl + '/empresa')
       .then(resp => resp.json())
   );
 
@@ -41,7 +42,6 @@ export default function SelecaoOferta({ id, step }) {
       }
     }
 
-    console.log(ofertas)
   }, [isLoading, error, data, id, step]);
 
   useEffect(() => {
@@ -63,6 +63,7 @@ export default function SelecaoOferta({ id, step }) {
     }
   }, [empresas, selecao]);
 
+  
   return (
     <div className='wrap_options'>
       {isLoading ? (
@@ -72,13 +73,17 @@ export default function SelecaoOferta({ id, step }) {
         </div>
       ) : (
         <>
-          {empresas?.map((ipo, index) => (
+          {empresas?.map((ipo, index) => {
+          return (
             <label key={ipo.id}>
               <input
                 type="radio"
                 name="empresa"
                 value={ipo.nome}
-                defaultChecked={index == 0}
+                defaultChecked={
+                  (step === 1 && index === 0) ||
+                  (step === 2 && index === 1) // Change this line to index === 1 for step 2
+                }
                 onChange={handleSelecaoChange}
               />
               <div className="option wrap_img" style={{ background: ipo.cor }}>
@@ -86,7 +91,7 @@ export default function SelecaoOferta({ id, step }) {
                 <h3>{ipo.nome}</h3>
               </div>
             </label>
-          ))}
+          )})}
         </>
       )}
     </div>

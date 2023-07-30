@@ -7,13 +7,15 @@ import ReactLoading from 'react-loading';
 
 import { useQuery } from 'react-query'
 
+import { API_baseurl } from '../../services/utils';
+
 export default function ListaCards(props) {
   const { tipo, botao, admOptions, max } = props
 
   const [dados, setDados] = useState(props.dados)
 
   const { isLoading, error, data } = useQuery(`repo-empresas`, () =>
-    fetch(`https://investium-api.herokuapp.com/empresa`).then(res =>
+    fetch(`${API_baseurl}/empresa`).then(res =>
       res.json())
   )
 

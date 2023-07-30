@@ -1,36 +1,16 @@
 
 import default_profile from '../../../../Assets/Governanca/user.png'
 
-import { useQuery } from 'react-query'
+export default function Governanca({ governanca }) {
 
-import ReactLoading from 'react-loading'
-
-export default function Governanca(props){
-
-    // const [governanca, setGovernanca] = useState({})
-    // const [loading, setLoading] = useState(true)
-
-    const { isLoading, error, data: governanca } = useQuery(`governanca-${props.id}`, () =>
-        fetch(`https://investium-api.herokuapp.com/governanca/byEmpresa/${props.id}`).then(res =>
-        res.json()
-        )
-    )
-
-    return(
+    return (
         <section className="container governanca" id="governanca">
-            { isLoading ? 
-            (
-                <div className='wrap_loading'>
-                    <ReactLoading type="spinningBubbles" color='#444'/>
-                    <p>Carregando governança...</p>
-                </div>
-            ) 
-            : 
-            (
-                <>
-                    <h1 className="line_after">Diretoria (Governança)</h1>
-                    <article>
-                        { governanca.pessoasGovernanca.map((pessoa) => {
+
+            <h1 className="line_after">Diretoria (Governança)</h1>
+            {governanca.map(gov => {
+                return (
+                    <article key={gov.id}>
+                        {gov.pessoasGovernanca.map((pessoa) => {
                             return (
                                 <div key={pessoa.id}>
                                     <img src={default_profile} alt="" />
@@ -39,11 +19,13 @@ export default function Governanca(props){
                                         <small>{pessoa.cargo}</small>
                                     </div>
                                 </div>
-                        )}) }
+                            )
+                        })}
                     </article>
-                </>
-            )}
-            
+                )
+            })}
+
+
         </section>
     )
 }

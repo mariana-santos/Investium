@@ -8,34 +8,26 @@ import { useState, useEffect } from "react";
 import ReactLoading from 'react-loading';
 
 import { useQuery } from 'react-query'
+import { API_baseurl } from '../../services/utils';
 
 export default function Blog() {
   const [artigosFiltrados, setArtigosFiltrados] = useState([]);
-  // const [artigos, setArtigos] = useState([]);
-  // const [categorias, setCategorias] = useState([]);
-  // const [loading, setLoading] = useState(true);
 
   const [categoria, setCategoria] = useState('Todas as categorias');
   const [pesquisa, setPesquisa] = useState('');
   const [resultPesquisa, setResult] = useState('');
 
-  const { isLoading, error: errorArtigos, data: artigos } = useQuery('repo-postagem', () =>
-    fetch('https://investium-api.herokuapp.com/postagem').then(res =>
+  const { isLoading, error: errorArtigos, data: artigos } = useQuery('repo-blog', () =>
+    fetch(API_baseurl + '/postagem').then(res =>
       res.json()
     )
   )
 
   const { isLoading: isLoadingCategoria, error: errorCategoria, data: categorias } = useQuery('repoCategoria', () =>
-    fetch('https://investium-api.herokuapp.com/categoria').then(res =>
+    fetch(API_baseurl + '/categoria').then(res =>
       res.json()
     )
   )
-
-  useEffect(() => {
-    if(!isLoading && !errorArtigos){
-      setArtigosFiltrados(artigos)
-    }
-  }, [isLoading, errorArtigos, artigos])
 
   useEffect(() => {
     setArtigosFiltrados(filtrarArtigos(pesquisa, categoria));
@@ -131,8 +123,7 @@ export default function Blog() {
 
               <p id="result">{resultPesquisa}</p>
             </section>
-
-            <ListaCards tipo="materia" botao={false} />
+            <ListaCards tipo="materia" botao={false} dados={artigosFiltrados} />
           </>
         )}
       </main>

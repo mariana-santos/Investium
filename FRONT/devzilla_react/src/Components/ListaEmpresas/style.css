@@ -3,3 +3,19 @@
     flex-wrap: wrap;
     gap: 3em;
 }
+
+@media screen and (max-width: 768px) {
+    .lista_cards{
+        gap: 1em;
+    }
+
+    .card.ipo{
+        margin-bottom: 0;
+        width: calc(50% - 1em);
+        box-sizing: border-box;
+    }
+
+    .card.ipo .icon_opt{
+        right: .5em;
+    }
+}

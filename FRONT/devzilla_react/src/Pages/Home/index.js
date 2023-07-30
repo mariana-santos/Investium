@@ -31,11 +31,19 @@ export default function App() {
 
         <BannerSlider
           banners={[
-            <Banner titulo="Todos os IPOs disponíveis em um só lugar!" />,
+            <Banner 
+              titulo="Todos os IPOs disponíveis em um só lugar!" 
+              key={0} />,
+
             <Banner 
               imagem="/banner/investimento.jpg" 
+              key={1}
               titulo="Compare as ofertas para investir com confiança!"/>,
-            <Banner imagem="/banner/banner_blog.jpg" titulo="Aprenda mais sobre investimento, ofertas e educação financeira!" />
+
+            <Banner 
+              imagem="/banner/banner_blog.jpg" 
+              key={2}
+              titulo="Aprenda mais sobre investimento, ofertas e educação financeira!" />
           ]}
         />
 

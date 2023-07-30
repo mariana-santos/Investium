@@ -9,7 +9,6 @@ import Governanca from "./Governanca";
 import Topo from "./Topo";
 import SecaoTexto from "./SecaoTexto";
 
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import ReactLoading from 'react-loading'
@@ -17,6 +16,8 @@ import ReactLoading from 'react-loading'
 import BalancoPatrimonial from "./BalancoPatrimonial";
 
 import { useQuery } from "react-query";
+
+import { API_baseurl } from "../../../services/utils";
 
 export default function Oferta() {
 
@@ -26,8 +27,8 @@ export default function Oferta() {
     // const [loading, setLoading] = useState(true)
 
     const { isLoading, error, data: oferta } = useQuery('ofertaUnica', () =>
-        fetch(`https://investium-api.herokuapp.com/empresa/${id}`).then(res =>
-        res.json()
+        fetch(`${API_baseurl}/empresa/${id}`).then(res =>
+            res.json()
         )
     )
 
@@ -55,7 +56,8 @@ export default function Oferta() {
                                 id="sobre"
                             />
 
-                            <Governanca id={id} />
+                            <IndicadoresFinanceiros oferta={oferta} id={id} />
+
 
                             <SecaoTexto
                                 titulo="Sobre a oferta (IPO)"
@@ -63,9 +65,12 @@ export default function Oferta() {
                                 id="oferta"
                             />
 
-                            <IndicadoresFinanceiros oferta={oferta} id={id} />
+                            <Governanca governanca={oferta.governanca} />
 
-                            <BalancoPatrimonial id={id} />
+
+
+
+                            <BalancoPatrimonial balancos={oferta.balancos} />
                         </>
                     )}
 

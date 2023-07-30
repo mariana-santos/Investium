@@ -1,0 +1,1 @@
+export const API_baseurl = 'https://investiumpython-1-h3568230.deta.app'

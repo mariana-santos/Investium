@@ -4,8 +4,8 @@ class Utils:
 
     def connect(dsn):
             try:
-                user = "rm96384"
-                password = "200494"
+                user = ""
+                password = ""
                 dsn = "oracle.fiap.com.br/ORCL"
                 
                 conn = oracledb.connect(

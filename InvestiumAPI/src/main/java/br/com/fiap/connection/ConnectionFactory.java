@@ -13,8 +13,8 @@ public class ConnectionFactory {
 		 try {
 		 
 		 		String url = "jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL";
-		        String user = "rm96384";
-		        String password = "200494";
+		        String user = "";
+		        String password = "";
 		        Class.forName("oracle.jdbc.driver.OracleDriver");
 		        connection = DriverManager.getConnection(url, user, password);
 		        
@@ -22,9 +22,10 @@ public class ConnectionFactory {
 	               System.out.println("Conexão estabelecida com sucesso!");
 	           else
 	               System.out.println("Falha na conexão com o Banco de Dados!");
-		 }catch (Exception e) {
-	            e.printStackTrace();
-	        }
+		 }
+		 catch (Exception e) {
+	            e.printStackTrace(); 
+		}
 		 
 		 return connection;
 

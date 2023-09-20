@@ -39,7 +39,7 @@
 
 https://github.com/mariana-santos/repo_challenge/assets/56116824/f36eff07-1c37-4443-ac01-563c75fd1e30
 <p>Assista no Youtube: https://youtu.be/3nP4r-L_qqk</p>
-<p>Teste a versão Beta da aplicação: https://repo-challenge-j1bp-rcxn1h15r-mariana-santos.vercel.app/</p>
+<p>Teste a versão Beta da aplicação: https://investium-fiap.vercel.app</p>
 
 <h2>🛠 Tecnologias</h2>
 As seguintes ferramentas foram usadas na construção do projeto:

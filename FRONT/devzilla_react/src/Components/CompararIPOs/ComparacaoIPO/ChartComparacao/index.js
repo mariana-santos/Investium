@@ -11,6 +11,8 @@ import {
     BarController,
 } from 'chart.js';
 
+import { nubank, mobly } from '../../../../Assets/DadosExemplos/indicadores_financeiros';
+
 import { Chart } from 'react-chartjs-2';
 
 import { options } from '../../../../Assets/Utils';
@@ -32,10 +34,10 @@ export default function ChartComparacao({ ofertas, tipo }) {
     const oferta2 = ofertas[1];
 
     const anosSet = new Set([
-        ...oferta1.indicadoresFinanceiros
+        ...nubank
             .map(item => item.ano),
 
-        ...oferta2.indicadoresFinanceiros
+        ...mobly
             .map(item => item.ano)
     ]);
 
@@ -44,7 +46,7 @@ export default function ChartComparacao({ ofertas, tipo }) {
     const datasetOferta1 = {
         label: `${tipo} de ${oferta1.nome}`,
         data: anosArray.map(ano => {
-            const indicador = oferta1.indicadoresFinanceiros.find(item => `${item.descricao} ${item.tipo}` == tipo && item.ano == ano);
+            const indicador = nubank.find(item => `${item.descricao} ${item.tipo}` == tipo && item.ano == ano);
             const valor = indicador ? parseFloat(indicador.valor) : 0;
             return valor;
         }),
@@ -54,7 +56,7 @@ export default function ChartComparacao({ ofertas, tipo }) {
     const datasetOferta2 = {
         label: `${tipo} de ${oferta2.nome}`,
         data: anosArray.map(ano => {
-            const indicador = oferta2.indicadoresFinanceiros.find(item => `${item.descricao} ${item.tipo}` == tipo && item.ano == ano);
+            const indicador = mobly.find(item => `${item.descricao} ${item.tipo}` == tipo && item.ano == ano);
             const valor = indicador ? parseFloat(indicador.valor) : 0;
             return valor;
         }),

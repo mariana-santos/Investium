@@ -26,7 +26,7 @@ export default function Oferta() {
     // const [oferta, setOferta] = useState({})
     // const [loading, setLoading] = useState(true)
 
-    const { isLoading, error, data: oferta } = useQuery('ofertaUnica', () =>
+    const { isLoading, data: oferta } = useQuery('ofertaUnica', () =>
         fetch(`${API_baseurl}/empresa/${id}`).then(res =>
             res.json()
         )
@@ -58,7 +58,6 @@ export default function Oferta() {
 
                             <IndicadoresFinanceiros oferta={oferta} id={id} />
 
-
                             <SecaoTexto
                                 titulo="Sobre a oferta (IPO)"
                                 descricao={oferta.descricaoIpo}
@@ -66,9 +65,6 @@ export default function Oferta() {
                             />
 
                             <Governanca governanca={oferta.governanca} />
-
-
-
 
                             <BalancoPatrimonial balancos={oferta.balancos} />
                         </>

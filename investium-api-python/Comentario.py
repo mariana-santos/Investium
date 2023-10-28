@@ -19,7 +19,7 @@ class Comentario(BaseModel):
             cursor_comentario.execute("""
                 SELECT c.id_coment, c.conteudo, c.data, u.email, u.nome, u.senha
                 FROM comentario c
-                JOIN usuario u ON c.fk_email = u.email
+                JOIN in_usuario u ON c.fk_email = u.email
                 ORDER BY c.data DESC
             """)
 
@@ -58,7 +58,7 @@ class Comentario(BaseModel):
             cursor_comentario.execute("""
                 SELECT c.id_coment, c.conteudo, c.data, u.email, u.nome, u.senha
                 FROM comentario c
-                JOIN usuario u ON c.fk_email = u.email
+                JOIN in_usuario u ON c.fk_email = u.email
                 WHERE c.id_coment = :id_coment
             """, {"id_coment": id_coment})
 
@@ -89,7 +89,7 @@ class Comentario(BaseModel):
                 conn.close()
 
     @classmethod
-    def novo_comentario(cls, c: 'Comentario', id_post: int, dsn: str) -> None:
+    def novo_comentario(cls, c: 'Comentario', id_postagem: int, dsn: str) -> None:
         try:
             conn = Utils.connect(dsn)
             cursor_comentario = conn.cursor()
@@ -106,7 +106,7 @@ class Comentario(BaseModel):
             if row_id:
                 id = row_id[0] + 1
 
-            query = f"INSERT INTO comentario VALUES({id}, '{data_comentario}', '{c.conteudo}', {id_post}, '{c.usuario.email}')"
+            query = f"INSERT INTO comentario VALUES({id}, '{data_comentario}', '{c.conteudo}', {id_postagem}, '{c.usuario.email}')"
 
             cursor_comentario.execute(query)
             conn.commit()
@@ -126,7 +126,7 @@ class Comentario(BaseModel):
                 conn.close()
 
     @classmethod
-    def buscar_comentarios_por_post(cls, dsn: str, id_post: int):
+    def buscar_comentarios_por_post(cls, dsn: str, id_postagem: int):
         try:
             conn = Utils.connect(dsn)
             cursor_comentario = conn.cursor()
@@ -134,10 +134,10 @@ class Comentario(BaseModel):
             cursor_comentario.execute("""
                 SELECT c.id_coment, c.conteudo, c.data, u.email, u.nome, u.senha
                 FROM comentario c
-                JOIN usuario u ON c.fk_email = u.email
-                WHERE c.fk_postagem = :id_post
+                JOIN in_usuario u ON c.fk_email = u.email
+                WHERE c.fk_postagem = :id_postagem
                 ORDER BY c.data DESC
-            """, {"id_post": id_post})
+            """, {"id_postagem": id_postagem})
 
             lista_comentarios = []
             for row in cursor_comentario:

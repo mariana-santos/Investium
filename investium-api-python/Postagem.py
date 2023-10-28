@@ -20,9 +20,9 @@ class Postagem(BaseModel):
             cursor_postagem = conn.cursor()
 
             cursor_postagem.execute("""
-                SELECT p.id_post, p.titulo, p.texto, p.img_url, p.data, p.likes, c.id_cat, c.descricao
+                SELECT p.id_postagem, p.titulo, p.texto, p.img_url, p.data, p.likes, c.id_categoria, c.descricao
                 FROM postagem p
-                JOIN categoria c ON p.fk_cat = c.id_cat
+                JOIN categoria c ON p.fk_categoria = c.id_categoria
                 ORDER BY p.data DESC
             """)
 
@@ -63,11 +63,11 @@ class Postagem(BaseModel):
             cursor_postagem = conn.cursor()
 
             cursor_postagem.execute("""
-                SELECT p.id_post, p.titulo, p.texto, p.img_url, p.data, p.likes, c.id_cat, c.descricao
+                SELECT p.id_postagem, p.titulo, p.texto, p.img_url, p.data, p.likes, c.id_categoria, c.descricao
                 FROM postagem p
-                JOIN categoria c ON p.fk_cat = c.id_cat
-                WHERE p.id_post = :id_post
-            """, {"id_post": id_postagem})
+                JOIN categoria c ON p.fk_categoria = c.id_categoria
+                WHERE p.id_postagem = :id_postagem
+            """, {"id_postagem": id_postagem})
 
             row = cursor_postagem.fetchone()
             if row:
@@ -105,10 +105,10 @@ class Postagem(BaseModel):
             cursor_postagem = conn.cursor()
 
             query = """
-                SELECT p.id_post, p.titulo, p.texto, p.img_url, p.data, p.likes, c.id_cat, c.descricao
+                SELECT p.id_postagem, p.titulo, p.texto, p.img_url, p.data, p.likes, c.id_categoria, c.descricao
                 FROM postagem p
-                JOIN categoria c ON p.fk_cat = c.id_cat
-                JOIN consome cons ON cons.fk_email = :email AND cons.id_post = p.id_post
+                JOIN categoria c ON p.fk_categoria = c.id_categoria
+                JOIN consome cons ON cons.fk_email = :email AND cons.id_postagem = p.id_postagem
                 ORDER BY p.data DESC
             """
 

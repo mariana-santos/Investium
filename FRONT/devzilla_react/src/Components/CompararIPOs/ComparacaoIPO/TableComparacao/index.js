@@ -1,12 +1,14 @@
+import { nubank, mobly } from "../../../../Assets/DadosExemplos/indicadores_financeiros";
+
 export default function Table({ ofertas, ano }) {
     const oferta1 = ofertas[0];
     const oferta2 = ofertas[1];
   
     const descricaoSet = new Set([
-      ...oferta1.indicadoresFinanceiros
+      ...nubank
         .filter(item => item.ano == ano)
         .map(item => `${item.descricao} ${item.tipo}`),
-      ...oferta2.indicadoresFinanceiros
+      ...mobly
         .filter(item => item.ano == ano)
         .map(item => `${item.descricao} ${item.tipo}`)
     ]);
@@ -25,8 +27,8 @@ export default function Table({ ofertas, ano }) {
   
         <tbody>
           {descricoes.map(descricao => {
-            const valorOferta1 = oferta1.indicadoresFinanceiros.find(item => `${item.descricao} ${item.tipo}` === descricao && item.ano == ano)?.valor || '-';
-            const valorOferta2 = oferta2.indicadoresFinanceiros.find(item => `${item.descricao} ${item.tipo}` === descricao && item.ano == ano)?.valor || '-';
+            const valorOferta1 = nubank.find(item => `${item.descricao} ${item.tipo}` === descricao && item.ano == ano)?.valor || '-';
+            const valorOferta2 = mobly.find(item => `${item.descricao} ${item.tipo}` === descricao && item.ano == ano)?.valor || '-';
   
             return (
               <tr key={descricao}>

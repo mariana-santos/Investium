@@ -1,24 +1,11 @@
-import { useEffect, useState } from "react";
-
-import {
-    Chart as ChartJS,
-    LinearScale,
-    CategoryScale,
-    BarElement,
-    PointElement,
-    LineElement,
-    Legend,
-    Tooltip,
-    LineController,
-    BarController,
-} from 'chart.js';
+import { useState } from "react";
 
 import Table from "../Table";
 import ChartIndicadores from "../ChartIndicadores";
 
-export default function IndicadoresFinanceiros(props) {
+import { nubank } from "../../../../Assets/DadosExemplos/indicadores_financeiros";
 
-    const { oferta } = props;
+export default function IndicadoresFinanceiros(props) {
     const [visualizacao, setVisualizacao] = useState('barra');
 
     return (
@@ -31,7 +18,7 @@ export default function IndicadoresFinanceiros(props) {
             </div>
 
             <div className="container row charts_section indicadores" style={{ paddingTop: 0 }}>
-                {oferta.indicadoresFinanceiros.length > 0 ?
+                {nubank.length > 0 ?
                     (
                         <div className="column wrap_data">
                             <div className="wrap_filter">
@@ -49,8 +36,8 @@ export default function IndicadoresFinanceiros(props) {
                             </div>
 
                             {visualizacao === 'tabela' ?
-                                <Table dados={oferta.indicadoresFinanceiros} /> :
-                                <ChartIndicadores dados={oferta.indicadoresFinanceiros} />}
+                                <Table dados={nubank} /> :
+                                <ChartIndicadores dados={nubank} />}
                         </div>) :
                     (<p style={{ textAlign: 'center' }}>Nenhum indicador financeiro encontrado.</p>)}
             </div>

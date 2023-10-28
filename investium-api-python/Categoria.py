@@ -12,9 +12,9 @@ class Categoria(BaseModel):
             cursor_cat = conn.cursor()
 
             cursor_cat.execute("""
-                SELECT cat.id_cat, cat.descricao
+                SELECT cat.id_categoria, cat.descricao
                 FROM categoria cat
-                ORDER BY cat.id_cat
+                ORDER BY cat.id_categoria
             """)
 
             lista_categorias = []
@@ -46,10 +46,10 @@ class Categoria(BaseModel):
             cursor_cat = conn.cursor()
 
             cursor_cat.execute("""
-                SELECT cat.id_cat, cat.descricao
+                SELECT cat.id_categoria, cat.descricao
                 FROM categoria cat
-                WHERE cat.id_cat = :id_cat
-            """, {"id_cat": categoria_id})
+                WHERE cat.id_categoria = :id_categoria
+            """, {"id_categoria": categoria_id})
 
             row = cursor_cat.fetchone()
             if row is not None:

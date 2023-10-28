@@ -215,10 +215,10 @@ def incluir_usuario(novo_usuario: Usuario):
     
 
 # APIS - USUÁRIO (SALVAR POSTAGEM)
-@app.post("/usuario/{email}/postagem/{id_post}", tags=["Usuario"])
-def salvar_postagem(email: str, id_post: int):
+@app.post("/usuario/{email}/postagem/{id_postagem}", tags=["Usuario"])
+def salvar_postagem(email: str, id_postagem: int):
     try:
-        Usuario.salvar_postagem(email, id_post, dsn)
+        Usuario.salvar_postagem(email, id_postagem, dsn)
         return {"message": "Postagem salva com sucesso!"}
     
     except Exception as e:
@@ -227,10 +227,10 @@ def salvar_postagem(email: str, id_post: int):
     
 
 # APIS - USUÁRIO (REMOVER POSTAGEM)
-@app.delete("/usuario/{email}/postagem/{id_post}", tags=["Usuario"])
-def remover_salva_postagem(email: str, id_post: int):
+@app.delete("/usuario/{email}/postagem/{id_postagem}", tags=["Usuario"])
+def remover_salva_postagem(email: str, id_postagem: int):
     try:
-        Usuario.remover_salva_postagem(email, id_post, dsn)
+        Usuario.remover_salva_postagem(email, id_postagem, dsn)
         return {"message": "Postagem removida dos salvos com sucesso!"}
     
     except Exception as e:

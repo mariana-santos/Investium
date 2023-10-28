@@ -11,6 +11,8 @@ import { useQuery } from 'react-query';
 
 import { useEffect } from 'react';
 
+import { nubank, mobly } from '../../../Assets/DadosExemplos/indicadores_financeiros';
+
 export default function ComparacaoIPO() {
 
     const { ofertas } = useContext(ComparacaoContext);
@@ -36,16 +38,16 @@ export default function ComparacaoIPO() {
 
             // Pegando os anos que tem indicadores financeiros disponíveis das ofertas
             const anosSetTemp = new Set([
-                ...(oferta1.indicadoresFinanceiros ? oferta1.indicadoresFinanceiros.map(item => item.ano) : []),
-                ...(oferta2.indicadoresFinanceiros ? oferta2.indicadoresFinanceiros.map(item => item.ano) : [])
+                ...(nubank ? nubank.map(item => item.ano) : []),
+                ...(mobly ? mobly.map(item => item.ano) : [])
             ]);
 
             setAnosSet(anosSetTemp);
             setAnosArray(Array.from(anosSetTemp));
 
             const descSetTemp = new Set([
-                ...(oferta1.indicadoresFinanceiros ? oferta1.indicadoresFinanceiros.map(item => `${item.descricao} ${item.tipo}`) : []),
-                ...(oferta2.indicadoresFinanceiros ? oferta2.indicadoresFinanceiros.map(item => `${item.descricao} ${item.tipo}`) : [])
+                ...(nubank ? nubank.map(item => `${item.descricao} ${item.tipo}`) : []),
+                ...(mobly ? mobly.map(item => `${item.descricao} ${item.tipo}`) : [])
             ]);
             setDescSet(descSetTemp);
             setDescArray(Array.from(descSetTemp));
@@ -72,7 +74,7 @@ export default function ComparacaoIPO() {
             <InfoEmpresa oferta={oferta1} />
             <InfoEmpresa oferta={oferta2} />
 
-            {(oferta1?.indicadoresFinanceiros.length > 0 || oferta2?.indicadoresFinanceiros.length > 0) ?
+            {(nubank.length > 0 || mobly.length > 0) ?
                 (<>
                     <h2>Dados financeiros de {oferta1.nome} e {oferta2.nome}</h2>
                     <p>Dúvidas para entender os indicadores financeiros?

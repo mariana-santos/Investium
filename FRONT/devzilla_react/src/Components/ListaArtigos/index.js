@@ -12,7 +12,7 @@ import { API_baseurl } from '../../services/utils';
 import api from '../../services/api';
 
 export default function ListaCards(props) {
-  const { tipo, botao, admOptions, max } = props
+  const { tipo, botao, max } = props
 
   const [dados, setDados] = useState(props.dados)
 
@@ -22,10 +22,11 @@ export default function ListaCards(props) {
   )
 
   useEffect(() => {
+    console.log(dados)
     if (!dados && !isLoading && !error) {
       max ? setDados(data.slice(0, max)) : setDados(data)
     }
-  }, [isLoading, error, data])
+  }, [isLoading, error, data, dados, max])
 
   return (
     <section className="container bg_gray">
@@ -39,14 +40,13 @@ export default function ListaCards(props) {
       ) : (
         <div className="lista_cards">
 
-          {/* {dados?.map((artigo) => (
+          {dados?.map((artigo) => (
             <Card
               key={artigo.id}
               tipo={tipo}
               dados={artigo}
-              admOptions={admOptions}
             />
-          ))} */}
+          ))}
 
         </div>
       )}

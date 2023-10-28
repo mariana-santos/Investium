@@ -8,7 +8,7 @@ class Setor(BaseModel):
     descricao: str
 
     @classmethod
-    def buscar_setores_banco(dsn):
+    def buscar_setores_banco(cls, dsn):
         try:
             conn = Utils.connect(dsn)
             cursor_set = conn.cursor()

@@ -17,7 +17,7 @@ class IndicadorFinanceiro(BaseModel):
             cursor_indicador = conn.cursor()
 
             cursor_indicador.execute("""
-                SELECT id_indicador, descricao, tipo, valor, EXTRACT(YEAR FROM ano) as ano
+                SELECT id_indicador, descricao, tipo, valor, ano
                 FROM indicador_financeiro
                 WHERE fk_empresa = :id_empresa
                 ORDER BY id_indicador

@@ -23,7 +23,7 @@ class Usuario(BaseModel):
             conn = Utils.connect(dsn)
             cursor_usuario = conn.cursor()
             
-            query = "INSERT INTO usuario (email, nome, dtNascimento, senha, papel) VALUES (?, ?, ?, ?, ?)"
+            query = "INSERT INTO in_usuario (email, nome, dtNascimento, senha, papel) VALUES (?, ?, ?, ?, ?)"
 
             data_nascimento = usuario.dtNascimento.strftime('%Y-%m-%d')
 
@@ -62,7 +62,7 @@ class Usuario(BaseModel):
             conn = Utils.connect(dsn)
             cursor = conn.cursor()
 
-            query = "SELECT * FROM usuario WHERE email = :email AND senha = :senha"
+            query = "SELECT * FROM in_usuario WHERE email = :email AND senha = :senha"
 
             cursor.execute(query, {'email': email, 'senha': senha})
 
@@ -100,14 +100,14 @@ class Usuario(BaseModel):
                 conn.close()
 
     @classmethod
-    def salvar_postagem(cls, email, id_post, dsn):
+    def salvar_postagem(cls, email, id_postagem, dsn):
         try:
             conn = Utils.connect(dsn)
             cursor = conn.cursor()
 
-            query = "INSERT INTO consome (fk_email, id_post) VALUES (:email, :id_post)"
+            query = "INSERT INTO consome (fk_email, id_postagem) VALUES (:email, :id_postagem)"
 
-            cursor.execute(query, {"email": email, "id_post": id_post})
+            cursor.execute(query, {"email": email, "id_postagem": id_postagem})
 
             conn.commit()
 
@@ -127,14 +127,14 @@ class Usuario(BaseModel):
                 conn.close()
 
     @classmethod
-    def remover_salva_postagem(cls, email, id_post, dsn):
+    def remover_salva_postagem(cls, email, id_postagem, dsn):
         try:
             conn = Utils.connect(dsn)
             cursor = conn.cursor()
 
-            query = "DELETE FROM consome WHERE fk_email = :email AND id_post = :id_post"
+            query = "DELETE FROM consome WHERE fk_email = :email AND id_postagem = :id_postagem"
 
-            cursor.execute(query, {"email": email, "id_post": id_post})
+            cursor.execute(query, {"email": email, "id_postagem": id_postagem})
 
             conn.commit()
 

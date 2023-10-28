@@ -171,7 +171,7 @@ function Materia(props) {
         </a>
         <div className="card_content" id={typeof (props.admOptions)}>
           <h3 className="c_title">{titulo}</h3>
-          <small>{conteudo}</small>
+          <small>{conteudo.replace(/\\n/g, ' ')}</small>
 
           <div className='card_footer'>
             <Button

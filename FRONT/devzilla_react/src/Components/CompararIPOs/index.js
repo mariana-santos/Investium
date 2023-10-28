@@ -4,8 +4,6 @@ import { createContext, useState } from "react";
 import SelecaoOferta from "./SelecaoOferta";
 import ComparacaoIPO from "./ComparacaoIPO";
 
-import ipos from '../../Assets/DadosExemplos/ipos.json'
-
 export const ComparacaoContext = createContext();
 
 export default function CompararIPOs({ id, show, fecharModal }) {

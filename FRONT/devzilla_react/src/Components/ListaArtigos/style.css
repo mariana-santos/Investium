@@ -1,5 +1,5 @@
 .lista_cards{
     display: flex;
     flex-wrap: wrap;
-    gap: 3em;
+    gap: 2em;
 }

@@ -129,6 +129,13 @@ export const nubank = [
 
 export const mobly = [
     {
+      id: 13,
+      descricao: "Receita",
+      tipo: "total",
+      valor: 299654,
+      ano: 2023
+    },
+    {
       id: 23,
       descricao: "Receita",
       tipo: "líquido",
@@ -190,5 +197,33 @@ export const mobly = [
       tipo: "líquido",
       valor: -22539,
       ano: 2023
+    },
+    {
+      id: 78,
+      descricao: "Receita",
+      tipo: "Total",
+      valor: 38.920,
+      ano: 2022
+    },
+    {
+      id: 79,
+      descricao: "Lucro",
+      tipo: "bruto",
+      valor: 38920,
+      ano: 2022
+    },
+    {
+      id: 80,
+      descricao: "Despesa",
+      tipo: "líquido",
+      valor: 33,
+      ano: 2022
+    },
+    {
+      id: 80,
+      descricao: "Despesa",
+      tipo: "líquido",
+      valor: 1893,
+      ano: 2022
     }
   ]
